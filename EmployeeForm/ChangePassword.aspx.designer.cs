@@ -11,35 +11,44 @@ namespace EmployeeForm
 {
 
 
-    public partial class ImageForm1
+    public partial class Changepassword
     {
 
         /// <summary>
-        /// txtname control.
+        /// txtcurrentpassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtname;
+        protected global::System.Web.UI.WebControls.TextBox txtcurrentpassword;
 
         /// <summary>
-        /// txtage control.
+        /// txtnewpassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtage;
+        protected global::System.Web.UI.WebControls.TextBox txtnewpassword;
 
         /// <summary>
-        /// fuimage control.
+        /// txtconfirmnewpassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuimage;
+        protected global::System.Web.UI.WebControls.TextBox txtconfirmnewpassword;
+
+        /// <summary>
+        /// btncp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btncp;
 
         /// <summary>
         /// lblmsg control.
@@ -49,23 +58,5 @@ namespace EmployeeForm
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmsg;
-
-        /// <summary>
-        /// btnsubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnsubmit;
-
-        /// <summary>
-        /// gvimage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvimage;
     }
 }

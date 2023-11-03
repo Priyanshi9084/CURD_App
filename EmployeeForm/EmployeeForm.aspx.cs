@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.DynamicData;
+using System.Configuration;
 
 namespace EmployeeForm
 {
@@ -15,16 +16,25 @@ namespace EmployeeForm
         SqlConnection con = new SqlConnection("data source=DESKTOP-MUBSA3S\\SQLEXPRESS;initial catalog=EMPLOYEE01;integrated security=true");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (Session["idd"] != null && Session["idd"].ToString() != "")
             {
-                BindStatus();
-                BindHobbies();
-                BindDepartment();
-                BindQualification();
-                BindCountry();
-                BindGrid();
-            }
 
+                if (!IsPostBack)
+                {
+                    BindStatus();
+                    BindHobbies();
+                    BindDepartment();
+                    BindQualification();
+                    BindCountry();
+                    BindGrid();
+
+
+                }
+            }
+            else
+            {
+                Response.Redirect("LogoutForm1.aspx");
+            }
         }
         public void BindHobbies()
         {
@@ -36,7 +46,7 @@ namespace EmployeeForm
             con.Close();
             cblhobbies.DataValueField = "hid";
             cblhobbies.DataTextField = "hname";
-           cblhobbies.DataSource = dt;
+            cblhobbies.DataSource = dt;
             cblhobbies.DataBind();
 
         }
@@ -50,20 +60,20 @@ namespace EmployeeForm
             con.Close();
             gvemployee.DataSource = dt;
             gvemployee.DataBind();
-        
+
         }
-            public void BindStatus()
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("select * from tblstatus", con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                con.Close();
-                rblstatus.DataValueField = "sid";
-                rblstatus.DataTextField = "sname";
-                rblstatus.DataSource = dt;
-                rblstatus.DataBind();
+        public void BindStatus()
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select * from tblstatus", con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            rblstatus.DataValueField = "sid";
+            rblstatus.DataTextField = "sname";
+            rblstatus.DataSource = dt;
+            rblstatus.DataBind();
 
         }
         public void BindDepartment()
@@ -78,7 +88,7 @@ namespace EmployeeForm
             ddldepartment.DataTextField = "dname";
             ddldepartment.DataSource = dt;
             ddldepartment.DataBind();
-            ddldepartment.Items.Insert(0, new ListItem("--Select--","0"));
+            ddldepartment.Items.Insert(0, new ListItem("--Select--", "0"));
 
         }
         public void BindQualification()
@@ -108,7 +118,7 @@ namespace EmployeeForm
             ddlcountry.DataTextField = "cname";
             ddlcountry.DataSource = dt;
             ddlcountry.DataBind();
-          ddlcountry.Items.Insert(0, new ListItem("--Select--", "0"));
+            ddlcountry.Items.Insert(0, new ListItem("--Select--", "0"));
 
         }
         public void BindState()
@@ -125,7 +135,7 @@ namespace EmployeeForm
             ddlstate.DataBind();
             ddlstate.Items.Insert(0, new ListItem("--Select--", "0"));
         }
-        public void BindCity() 
+        public void BindCity()
         {
             con.Open();
             SqlCommand cmd = new SqlCommand("select * from tblcity where stid='" + ddlstate.SelectedValue + "'", con);
@@ -154,6 +164,7 @@ namespace EmployeeForm
             btnsubmit.Text = "Submit";
         }
 
+
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
             string kk = "";
@@ -172,17 +183,18 @@ namespace EmployeeForm
 
                 kk = kk.TrimEnd(',');
                 con.Open();
-                SqlCommand cmd = new SqlCommand("insert into tblemployee(ename,estatus,edepartment,equalification,ecountry,estate,ecity,ehobbies)values('" + txtname.Text + "','" + rblstatus.SelectedValue + "','" + ddldepartment.SelectedValue + "','" + ddlqualification.SelectedValue + "','"+ddlcountry.SelectedValue+ "','" + ddlstate.SelectedValue + "','"+ddlcity.SelectedValue+"','"+kk+"')", con);
-                cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand("insert into tblemployee(ename,estatus,edepartment,equalification,ecountry,estate,ecity,ehobbies)values('" + txtname.Text + "','" + rblstatus.SelectedValue + "','" + ddldepartment.SelectedValue + "','" + ddlqualification.SelectedValue + "','" + ddlcountry.SelectedValue + "','" + ddlstate.SelectedValue + "','" + ddlcity.SelectedValue + "','" + kk + "')", con);
+                int i = cmd.ExecuteNonQuery();
+
                 con.Close();
                 BindGrid();
                 Clear();
             }
-            else if(btnsubmit.Text == "Update")
+            else if (btnsubmit.Text == "Update")
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("Update tblemployee set ename= '"+ txtname.Text + "',estatus='" + rblstatus.SelectedValue + "',edepartment='" + ddldepartment.SelectedValue + "', equalification='" + ddlqualification.SelectedValue+ "',ecountry='"+ddlcountry.SelectedValue+"',estate='"+ddlstate.SelectedValue+"',ecity='"+ddlcity.SelectedValue+ "',ehobbies='" + kk+"'  where empid='"+ViewState["Idd"]+"'", con);
-                cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand("Update tblemployee set ename= '" + txtname.Text + "',estatus='" + rblstatus.SelectedValue + "',edepartment='" + ddldepartment.SelectedValue + "', equalification='" + ddlqualification.SelectedValue + "',ecountry='" + ddlcountry.SelectedValue + "',estate='" + ddlstate.SelectedValue + "',ecity='" + ddlcity.SelectedValue + "',ehobbies='" + kk + "'  where empid='" + ViewState["Idd"] + "'", con);
+                int i = cmd.ExecuteNonQuery();
                 con.Close();
                 BindGrid();
                 Clear();
@@ -195,47 +207,49 @@ namespace EmployeeForm
             if (e.CommandName == "A")
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("delete from tblemployee where empid ='"+e.CommandArgument+"'",con);
+                SqlCommand cmd = new SqlCommand("delete from tblemployee where empid ='" + e.CommandArgument + "'", con);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 BindGrid();
+
             }
-            else if(e.CommandName == "B")
+            else if (e.CommandName == "B")
             {
-                
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("select * from tblemployee where empid='"+e.CommandArgument+"'", con);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    con.Close();
-                    txtname.Text = dt.Rows[0]["ename"].ToString();
-                    rblstatus.SelectedValue = dt.Rows[0]["estatus"].ToString();
-                    string[] arr= dt.Rows[0]["ehobbies"].ToString().Split(',');
-                    cblhobbies.ClearSelection();
-                       for(int i = 0; i < cblhobbies.Items.Count; i++)
+
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from tblemployee where empid='" + e.CommandArgument + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                con.Close();
+                txtname.Text = dt.Rows[0]["ename"].ToString();
+                rblstatus.SelectedValue = dt.Rows[0]["estatus"].ToString();
+                string[] arr = dt.Rows[0]["ehobbies"].ToString().Split(',');
+                cblhobbies.ClearSelection();
+                for (int i = 0; i < cblhobbies.Items.Count; i++)
                 {
-                    for (int j = 0;j < arr.Length; j++) {
+                    for (int j = 0; j < arr.Length; j++)
+                    {
                         if (cblhobbies.Items[i].Text == arr[j])
                         {
                             cblhobbies.Items[i].Selected = true;
                             break;
                         }
                     }
-                } 
+                }
 
-                    ddldepartment.SelectedValue = dt.Rows[0]["edepartment"].ToString();
-                    ddlqualification.SelectedValue = dt.Rows[0]["equalification"].ToString();
-                    ddlcountry.SelectedValue = dt.Rows[0]["ecountry"].ToString() ;
-                    BindState();
-                    ddlstate.SelectedValue = dt.Rows[0]["estate"].ToString();
-                    BindCity();
-                    ddlcity.SelectedValue = dt.Rows[0]["ecity"].ToString();
-                    btnsubmit.Text = "Update";
-                    ViewState["Idd"] = e.CommandArgument;
-                
+                ddldepartment.SelectedValue = dt.Rows[0]["edepartment"].ToString();
+                ddlqualification.SelectedValue = dt.Rows[0]["equalification"].ToString();
+                ddlcountry.SelectedValue = dt.Rows[0]["ecountry"].ToString();
+                BindState();
+                ddlstate.SelectedValue = dt.Rows[0]["estate"].ToString();
+                BindCity();
+                ddlcity.SelectedValue = dt.Rows[0]["ecity"].ToString();
+                btnsubmit.Text = "Update";
+                ViewState["Idd"] = e.CommandArgument;
+
             }
-            
+
         }
 
         protected void ddlcountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -247,6 +261,31 @@ namespace EmployeeForm
         protected void ddlstate_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCity();
+        }
+
+        protected void btnsearch_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Employee_Search", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@search", txtsearch.Text);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            if (dt.Rows.Count > 0)
+            {
+                gvemployee.DataSource = dt;
+                gvemployee.DataBind();
+                lblmsg.Text = "These are your results !!";
+            }
+            else
+            {
+                gvemployee.DataSource = null;
+                gvemployee.DataBind();
+                lblmsg.Text = "No record found !!";
+            }
+
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Default.master.cs" Inherits="EmployeeForm.Default" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.Master.cs" Inherits="EmployeeForm.Home" %>
 <%@ Register Src="~/Header.ascx" TagName="myhead" TagPrefix="aa" %>
 <%@ Register Src="~/Footer.ascx" TagName="myfoot" TagPrefix="aa" %>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 
 <html>
 <head runat="server">
     <script src="jquery.js"></script>
     <link href="menu.css" rel="stylesheet" />
     <script src="menu.js"></script>
+
 
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -27,8 +28,11 @@
                     <td>
                         <div id="menu">
 		<ul class="menu">
-            <li><a href="RegistrationForm.aspx"><span>Registration</span></a></li>
-   			<li class="last"><a href="LoginForm.aspx"><span>Login</span></a></li>
+			<li><a href="EmployeeForm.aspx"><span>Employee</span></a></li>
+            <li><a href="UserForm1.aspx"><span>User</span></a></li>
+            <li><a href="HomePage.aspx"><span>Home</span></a></li>
+            <li><a href="Changepassword.aspx"><span>Change Password</span></a></li>
+             <li><a href="LogoutForm1.aspx"><span>Logout</span></a></li>
 		</ul>
 	</div>
 

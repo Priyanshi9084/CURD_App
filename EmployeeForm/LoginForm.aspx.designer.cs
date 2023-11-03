@@ -11,35 +11,35 @@ namespace EmployeeForm
 {
 
 
-    public partial class ImageForm1
+    public partial class LoginForm
     {
 
         /// <summary>
-        /// txtname control.
+        /// txtemail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtname;
+        protected global::System.Web.UI.WebControls.TextBox txtemail;
 
         /// <summary>
-        /// txtage control.
+        /// txtpass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtage;
+        protected global::System.Web.UI.WebControls.TextBox txtpass;
 
         /// <summary>
-        /// fuimage control.
+        /// btnlogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuimage;
+        protected global::System.Web.UI.WebControls.Button btnlogin;
 
         /// <summary>
         /// lblmsg control.
@@ -49,23 +49,5 @@ namespace EmployeeForm
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmsg;
-
-        /// <summary>
-        /// btnsubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnsubmit;
-
-        /// <summary>
-        /// gvimage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvimage;
     }
 }

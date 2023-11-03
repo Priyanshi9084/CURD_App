@@ -67,15 +67,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChangePassword.aspx" />
     <Content Include="Corporate.jpg" />
     <Content Include="EmployeeForm.aspx" />
     <Content Include="Footer.ascx" />
     <Content Include="Header.ascx" />
+    <Content Include="HomePage.aspx" />
+    <Content Include="LoginForm.aspx" />
+    <Content Include="LogoutForm1.aspx" />
     <Content Include="UserForm1.aspx" />
     <Content Include="RegistrationForm.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.Master.cs">
       <DependentUpon>Default.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -104,6 +115,34 @@
     <Compile Include="Header.ascx.designer.cs">
       <DependentUpon>Header.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Home.Master.cs">
+      <DependentUpon>Home.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.Master.designer.cs">
+      <DependentUpon>Home.Master</DependentUpon>
+    </Compile>
+    <Compile Include="HomePage.aspx.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HomePage.aspx.designer.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.aspx.cs">
+      <DependentUpon>LoginForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginForm.aspx.designer.cs">
+      <DependentUpon>LoginForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LogoutForm1.aspx.cs">
+      <DependentUpon>LogoutForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogoutForm1.aspx.designer.cs">
+      <DependentUpon>LogoutForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UserForm1.aspx.cs">
       <DependentUpon>UserForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -122,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.Master" />
+    <Content Include="Home.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -131,7 +171,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Userpics\" />
+    <Folder Include="images\Userpics\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

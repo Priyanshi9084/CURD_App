@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.IO;
+using System.Configuration;
 
 namespace EmployeeForm
 {
@@ -15,9 +16,19 @@ namespace EmployeeForm
         SqlConnection con = new SqlConnection("data source=DESKTOP-MUBSA3S\\SQLEXPRESS;initial catalog=EMPLOYEE01;integrated security=true");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["idd"] != null && Session["idd"].ToString() != "")
             {
-                BindGrid();
+
+                if (!IsPostBack)
+                {
+                    BindGrid();
+
+
+                }
+            }
+            else
+            {
+                Response.Redirect("LogoutForm1.aspx");
             }
         }
         public void Clear()
@@ -54,10 +65,11 @@ namespace EmployeeForm
                 cmd.ExecuteNonQuery();
                 con.Close();
                 BindGrid();
-                    Clear();
+                Clear();
 
             }
-            else if(btnsubmit.Text == "Update"){
+            else if (btnsubmit.Text == "Update")
+            {
 
                 string FN = Path.GetFileName(fuimage.PostedFile.FileName);
                 if (FN != "")
@@ -93,24 +105,24 @@ namespace EmployeeForm
                 }
 
             }
-          
+
         }
 
         protected void gvimage_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "A")
             {
-               string[] arr= e.CommandArgument.ToString().Split(',');
+                string[] arr = e.CommandArgument.ToString().Split(',');
                 con.Open();
                 SqlCommand cmd = new SqlCommand("tblusers_delete", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@uid", arr[0]);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                File.Delete(Server.MapPath("Userpics" + "\\" + arr[1] ));
+                File.Delete(Server.MapPath("Userpics" + "\\" + arr[1]));
                 BindGrid();
             }
-            else if(e.CommandName == "B")
+            else if (e.CommandName == "B")
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("tblusers_Edit", con);
@@ -122,13 +134,13 @@ namespace EmployeeForm
                 con.Close();
                 txtname.Text = dt.Rows[0]["uname"].ToString();
                 txtage.Text = dt.Rows[0]["uage"].ToString();
-                ViewState["IMG"]= dt.Rows[0]["uimaage"].ToString();
+                ViewState["IMG"] = dt.Rows[0]["uimaage"].ToString();
                 btnsubmit.Text = "Update";
                 ViewState["id"] = e.CommandArgument;
-               
+
 
 
             }
-        } 
+        }
     }
 }
